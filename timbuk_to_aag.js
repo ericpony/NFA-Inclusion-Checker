@@ -108,7 +108,7 @@ var timbuk_to_aag = (function ()
 			var _print = function(g)
 			{
 				if(g instanceof Array) {
-					var g0 = g[0] - g[0]%2;
+					var g0 = vid(g[0]);
 					var g1 = g[1] instanceof Array ? g[1].length ? g[1][0] : FALSE : g[1];
 					var g2 = g[2] instanceof Array ? g[2].length ? g[2][0] : FALSE : g[2];
 					if(!dict[g0]) {
@@ -148,6 +148,7 @@ var timbuk_to_aag = (function ()
 
 		var and_gate_id = aut.num_states + encoded_alphabets.num_bits;
 
+		function vid(sid) { return 2*(sid>>1); }
 		function flip(id) { return id + (id%2 ? -1 : 1); }
 		function and_gate() { return 2*(++and_gate_id); }
 		function NOT(gate) { return gate instanceof Array ? gate.length ? [flip(gate[0]), gate[1], gate[2]] : TRUE : flip(gate); }
@@ -205,12 +206,13 @@ var timbuk_to_aag = (function ()
 
 		for(var s in aut.states) {
 			var next_state = latches[s];
-			if(!next_state)
-				next_state = aut.states[s];
-			else
+			if(!next_state){
+				next_state = aut.states[s]%2;
+				//next_state = vid(aut.states[s]);
+			}else
 			if(next_state.length)
 				next_state = next_state[0];
-			var current_state = 2*(aut.states[s]>>1);
+			var current_state = vid(aut.states[s]);
 			print(current_state + ' ' + next_state);
 		}
 
@@ -222,7 +224,7 @@ var timbuk_to_aag = (function ()
 
 		var t = "Transition: \n";
 		for(var s in latches) { 			 
-			var state = 2*(aut.states[s]>>1);
+			var state = vid(aut.states[s]);
 			t += 'next(' + state + ') = ' + print_gate(latches[s]) + "\n";
 		}
 		log(t);

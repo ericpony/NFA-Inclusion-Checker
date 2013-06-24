@@ -6,7 +6,7 @@
 <!--	<tr><td><center>NFA A</center>-->
 	<tr><td>
 	<textarea style='width:300px; height:247px;' id='aut1'>
-<? readfile('aut3'); ?>
+<? readfile('aut1'); ?>
 	</textarea>
 <!--	<tr><td><center>NFA B</center>-->
 	<tr><td>
@@ -21,7 +21,7 @@
 <textarea style='height:100%; width:600px;' id='console'>
 </textarea>
 <tr><td colspan='3'>
-<button onclick='main()' style='width:100%;height:50px;font-size:1.5em'>Check if L(A1) is not contained in L(A2)</button>
+<button onclick='main()' style='width:100%;height:50px;font-size:1.3em'>Property is proven if L(A1) is contained in L(A2)</button>
 <tr><td colspan='2'>
 </table>
 <script type='text/javascript' src='/share/style/jquery-1.4.2.js'></script>
